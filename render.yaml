@@ -1,0 +1,17 @@
+# Render Blueprint: one free web service hosting the API and the built web app.
+# This is a public demo: the development sign-in (pick a sample account) is on,
+# payments use the test gateway, and the database is re-seeded with the CUTM
+# events plus the fictional sample data every time the service starts.
+services:
+  - type: web
+    name: eventease
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start:render
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: PASS_SECRET
+        generateValue: true
